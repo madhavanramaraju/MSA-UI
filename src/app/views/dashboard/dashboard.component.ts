@@ -1,9 +1,18 @@
 import { Component } from '@angular/core';
+import { ChartService } from '../../service/chart.service';
 
 @Component({
   templateUrl: 'dashboard.component.html'
 })
 export class DashboardComponent {
+  public userName = 'vishal';
+  public password = 'Aug@2019';
+
+  constructor(private chartService: ChartService) { }
+
+  ngOnInit() {
+    this.chartService.getData(this.userName, this.password);
+  }
 
   // lineChart
   public lineChartData: Array<any> = [
