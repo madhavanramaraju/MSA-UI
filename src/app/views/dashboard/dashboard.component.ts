@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ChartService } from '../../service/chart.service';
+import { CHARTDATA } from '../../shared/sample';
 
 @Component({
   templateUrl: 'dashboard.component.html'
@@ -7,20 +8,39 @@ import { ChartService } from '../../service/chart.service';
 export class DashboardComponent {
   public userName = 'vishal';
   public password = 'Aug@2019';
+  piechartLabel: Array<any> = [];
+  piechartData: Array<any> = [];
+
+  barchartLabel: Array<any> = [];
+  barchartData: Array<any> = [];
+
+  linechartLabel: Array<any> = [];
+  linechartData: Array<any> = [];
 
   constructor(private chartService: ChartService) { }
 
   ngOnInit() {
-    this.chartService.getData(this.userName, this.password);
+    //this.chartService.getData(this.userName, this.password);
+    this.generateBarChart();
+    this.generatePieChart();
+    this.generateLineChart();
   }
 
   // lineChart
-  public lineChartData: Array<any> = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'},
-    {data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C'}
-  ];
-  public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public generateLineChart() {
+    for(var i=0; i< CHARTDATA.length; i++) {
+      this.linechartLabel.push(CHARTDATA[i]['vendor_name']);
+      this.linechartData.push({data: [CHARTDATA[i]['Total_Amount_CY']], label: CHARTDATA[i]['vendor_name']});
+    }
+  }
+  public lineChartData: Array<any> = this.linechartData;
+  // [
+  //   {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
+  //   {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'},
+  //   {data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C'}
+  // ];
+  public lineChartLabels: Array<any> = this.linechartLabel;
+  //  ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartOptions: any = {
     animation: false,
     responsive: true
@@ -55,18 +75,27 @@ export class DashboardComponent {
   public lineChartType = 'line';
 
   // barChart
+  public generateBarChart() {
+    for(var i=0; i< CHARTDATA.length; i++) {
+      this.barchartLabel.push(CHARTDATA[i]['vendor_name']);
+      this.barchartData.push({data: [CHARTDATA[i]['Total_Amount_CY']], label: CHARTDATA[i]['vendor_name']});
+    }
+  }
+
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true
   };
-  public barChartLabels: string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+  public barChartLabels: string[] = this.barchartLabel;
   public barChartType = 'bar';
   public barChartLegend = true;
 
-  public barChartData: any[] = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
-  ];
+  public barChartData: any[] = this.barchartData;
+  
+  // [
+  //   {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
+  //   {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
+  // ];
 
   // Doughnut
   public doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
@@ -75,7 +104,7 @@ export class DashboardComponent {
 
 
      // scatter
-    public scatterChartLabels: string[] = ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'];
+    //public scatterChartLabels: string[] = ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'];
     public scatterChartData: any[] = [
       {
         data: [
@@ -92,17 +121,18 @@ export class DashboardComponent {
   public scatterChartType = 'scatter'; 
 
   // Pie
-  public pieChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail Sales'];
-  public pieChartData: number[] = [300, 500, 100];
+  public generatePieChart() {
+    for(var i=0; i< CHARTDATA.length; i++) {
+      this.piechartLabel.push(CHARTDATA[i]['vendor_name']);
+      this.piechartData.push(CHARTDATA[i]['Total_Amount_CY']);
+    }
+  }
+
+  public pieChartLabels: string[] = this.piechartLabel;
+  public pieChartData: number[] = this.piechartData;
   public pieChartType = 'pie';
 
   // Bubble Chart
-  public polarAreaChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail Sales', 'Telesales', 'Corporate Sales'];
-  public polarAreaChartData: number[] = [300, 500, 100, 40, 120];
-  public polarAreaLegend = true;
-
-  public polarAreaChartType = 'polarArea';
-
   public bubbleChartOptions: any = {
     responsive: true,
     scales: {

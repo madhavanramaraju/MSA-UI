@@ -1,0 +1,7 @@
+{
+  "/api": {
+    "target": "http://172.16.16.133:9047/api/v3/job/2276376b-0f43-04c7-afd7-dc923abd3000/results",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

@@ -6,7 +6,7 @@ import * as $ from 'jquery'
   providedIn: 'root'
 })
 export class ChartService {
-  uri     = 'http://172.16.40.187:9047';
+  uri     = 'http://172.16.16.133:9047';
   API_KEY = 'YOUR_API_KEY';
 
   constructor(private http: HttpClient) { }
@@ -16,29 +16,27 @@ export class ChartService {
   const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        'Access-Control-Allow-Methods': 'GET, POST, PATCH, DELETE',
-        'Access-Control-Allow-Headers': 'X-Requested-With, Content-Type, Authorization',
-        'Access-Control-Allow-Origin': '*'
+        'Authorization': '_dremiokj98g5h9bh6hnmecss9apr4r5q'        
       })
     }; 
 
    const payload = {
-      "userName" : userName,
-      "password" : Password
+      "userName" : 'MSA',
+      "password" : 'Password@123'
     };
 
-    $.ajax({
-      type: "POST",
-      url: "http://172.16.40.187:9047/apiv2/login",
-      data: payload,
-      jsonp: "$jsonp",
-      dataType: "jsonp"
-    }).done(function(data) {
-      console.log("Request received: " + data);
-    });
+    // $.ajax({
+    //   type: "POST",
+    //   url: "http://172.16.40.187:9047/apiv2/login",
+    //   data: payload,
+    //   jsonp: "$jsonp",
+     
+    // }).done(function(data) {
+    //   console.log("Request received: " + data);
+    // });
 
-    // this.http.post(`${this.uri}/apiv2/login`, payload).subscribe((data) => {
-    //     console.log(data);
-    //   });
+    this.http.get('http://172.16.16.133:9047/api/v3/job/2276376b-0f43-04c7-afd7-dc923abd3000/results', httpOptions).subscribe((data) => {
+        console.log('-----------------------' + data);
+    });
   }
 }
