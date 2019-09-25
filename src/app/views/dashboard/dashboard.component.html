@@ -7,9 +7,9 @@
       
               </div>
             </div>
-            <div class="card-body">
+            <div class="card-body" >
               <div class="chart-wrapper">
-                <canvas baseChart class="chart"
+                <canvas  baseChart class="chart" *ngIf="barChartData.length > 0"
                 [datasets]="barChartData"
                 [labels]="barChartLabels"
                 [options]="barChartOptions"
@@ -29,7 +29,7 @@
               </div>
               <div class="card-body">
                 <div class="chart-wrapper">
-                  <canvas baseChart class="chart"
+                  <canvas  baseChart class="chart" *ngIf="lineChartData.length > 0"
                   [datasets]="lineChartData"
                   [labels]="lineChartLabels"
                   [options]="lineChartOptions"
@@ -50,7 +50,7 @@
               </div>
               <div class="card-body">
                 <div class="chart-wrapper">
-                  <canvas baseChart class="chart"
+                  <canvas baseChart class="chart" *ngIf="pieChartData.length > 0"
                   [data]="pieChartData"
                   [labels]="pieChartLabels"
                   [chartType]="pieChartType"

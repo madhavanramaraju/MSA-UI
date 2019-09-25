@@ -1,0 +1,11 @@
+            <div class="card-body" *ngIf="barChartData.length > 0">
+              <div class="chart-wrapper">
+                <canvas baseChart class="chart"
+                [datasets]="barChartData"
+                [labels]="barChartLabels"
+                [chartType]="barChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)">
+              </canvas>
+              </div>
+            </div>

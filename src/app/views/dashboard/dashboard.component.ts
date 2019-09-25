@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ChartService } from '../../service/chart.service';
-import { CHARTDATA } from '../../shared/sample';
 
 @Component({
   templateUrl: 'dashboard.component.html'
@@ -8,6 +7,7 @@ import { CHARTDATA } from '../../shared/sample';
 export class DashboardComponent {
   public userName = 'vishal';
   public password = 'Aug@2019';
+  CHARTDATA = [];
   piechartLabel: Array<any> = [];
   piechartData: Array<any> = [];
 
@@ -20,17 +20,20 @@ export class DashboardComponent {
   constructor(private chartService: ChartService) { }
 
   ngOnInit() {
-    //this.chartService.getData(this.userName, this.password);
-    this.generateBarChart();
-    this.generatePieChart();
-    this.generateLineChart();
+    this.chartService.getData().subscribe((res)=>{
+            this.CHARTDATA = res['rows'];
+            this.generateBarChart();
+            this.generatePieChart();
+            this.generateLineChart();
+        });
+    
   }
 
   // lineChart
   public generateLineChart() {
-    for(var i=0; i< CHARTDATA.length; i++) {
-      this.linechartLabel.push(CHARTDATA[i]['vendor_name']);
-      this.linechartData.push({data: [CHARTDATA[i]['Total_Amount_CY']], label: CHARTDATA[i]['vendor_name']});
+    for(var i=0; i< this.CHARTDATA.length; i++) {
+      this.linechartLabel.push(this.CHARTDATA[i]['vendor_name']);
+      this.linechartData.push({data: [this.CHARTDATA[i]['Total_Amount_CY']], label: this.CHARTDATA[i]['vendor_name']});
     }
   }
   public lineChartData: Array<any> = this.linechartData;
@@ -76,9 +79,9 @@ export class DashboardComponent {
 
   // barChart
   public generateBarChart() {
-    for(var i=0; i< CHARTDATA.length; i++) {
-      this.barchartLabel.push(CHARTDATA[i]['vendor_name']);
-      this.barchartData.push({data: [CHARTDATA[i]['Total_Amount_CY']], label: CHARTDATA[i]['vendor_name']});
+    for(var i=0; i< this.CHARTDATA.length; i++) {
+      this.barchartLabel.push(this.CHARTDATA[i]['vendor_name']);
+      this.barchartData.push({data: [this.CHARTDATA[i]['Total_Amount_CY']], label: this.CHARTDATA[i]['vendor_name']});
     }
   }
 
@@ -122,9 +125,9 @@ export class DashboardComponent {
 
   // Pie
   public generatePieChart() {
-    for(var i=0; i< CHARTDATA.length; i++) {
-      this.piechartLabel.push(CHARTDATA[i]['vendor_name']);
-      this.piechartData.push(CHARTDATA[i]['Total_Amount_CY']);
+    for(var i=0; i< this.CHARTDATA.length; i++) {
+      this.piechartLabel.push(this.CHARTDATA[i]['vendor_name']);
+      this.piechartData.push(this.CHARTDATA[i]['Total_Amount_CY']);
     }
   }
 
