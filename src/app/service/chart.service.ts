@@ -11,32 +11,14 @@ export class ChartService {
 
   constructor(private http: HttpClient) { }
 
-  public getData(userName, Password) {
+  public getData() {
 
-  const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': '_dremiokj98g5h9bh6hnmecss9apr4r5q'        
-      })
-    }; 
-
-   const payload = {
-      "userName" : 'MSA',
-      "password" : 'Password@123'
-    };
-
-    // $.ajax({
-    //   type: "POST",
-    //   url: "http://172.16.40.187:9047/apiv2/login",
-    //   data: payload,
-    //   jsonp: "$jsonp",
-     
-    // }).done(function(data) {
-    //   console.log("Request received: " + data);
-    // });
-
-    this.http.get('http://172.16.16.133:9047/api/v3/job/2276376b-0f43-04c7-afd7-dc923abd3000/results', httpOptions).subscribe((data) => {
-        console.log('-----------------------' + data);
-    });
+    let reqHeader = new HttpHeaders()
+    reqHeader.append('Content-Type', 'application/json')
+    console.log(reqHeader);
+    let payload = {
+      "sql": "SELECT * FROM usecase.VendorWiseTaxiSales "
+    }
+    return this.http.post(`http://localhost:9000/msa_poc/v1/data`, payload, {headers: reqHeader})
   }
 }

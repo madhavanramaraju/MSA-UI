@@ -117,7 +117,7 @@ export class DashboardComponent {
           { x: 4, y: 4 },
           { x: 5, y: -3 },
         ],
-        label: 'Series A',
+        label: 'VeriFone Inc - need more data',
         pointRadius: 10,
       },
     ];
